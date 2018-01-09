@@ -24,7 +24,6 @@ matrix:
 
     - os: linux
       compiler: clang
-      env:
 
 #    - os: osx
 #      compiler: gcc
@@ -48,7 +47,6 @@ install:
     - ./configure
     - make
     - sudo make install
-script:
 
 after_failure:
     - tail ../config.log
