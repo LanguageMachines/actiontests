@@ -1,2 +1,5 @@
 # travistest
-small program to test travis issues. Like OSX and Clang OpenMP support
+small program to test travis issues.
+ - OSX support
+ - Clang OpenMP support
+ - libtextcat hassle
