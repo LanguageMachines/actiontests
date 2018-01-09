@@ -51,4 +51,4 @@ install:
 script:
 
 after_failure:
-    - tail -n 500 ../config.log
+    - tail ../config.log
