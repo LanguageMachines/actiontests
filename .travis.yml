@@ -47,7 +47,7 @@ install:
     - ./configure
     - make
     - sudo make install
-    - ls -al /usr/lib/x86_64-linux-gnu/lib*omp.so
+#    - ls -al /usr/lib/x86_64-linux-gnu/lib*omp.so
 
 script:
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
