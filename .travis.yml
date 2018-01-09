@@ -53,3 +53,4 @@ script:
 
 after_failure:
     - tail -n500 config.log
+    - cat src/test-suite.log
