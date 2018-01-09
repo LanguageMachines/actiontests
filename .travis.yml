@@ -48,5 +48,8 @@ install:
     - make
     - sudo make install
 
+script:
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
+
 after_failure:
-    - tail ../config.log
+    - tail -n500 config.log
