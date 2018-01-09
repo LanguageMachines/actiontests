@@ -25,8 +25,8 @@ matrix:
     - os: linux
       compiler: clang
 
-#    - os: osx
-#      compiler: gcc
+    - os: osx
+      compiler: gcc
 
 
 before_install:
@@ -47,6 +47,7 @@ install:
     - ./configure
     - make
     - sudo make install
+    - ls -al /usr/lib/x86_64-linux-gnu/lib*omp.so
 
 script:
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
