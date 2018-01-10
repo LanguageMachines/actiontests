@@ -27,7 +27,12 @@ fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_OPENMP
-CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
+   CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+   AC_DEFINE(HAVE_OPENMP, 1 , Define to 1 if you have OpenMP )
+else
+   AC_MSG_NOTICE(We don't have OpenMP. Multithreaded operation is disabled)
+fi
 
 # Checks for library functions.
 
