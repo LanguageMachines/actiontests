@@ -28,7 +28,6 @@ matrix:
         apt:
           packages:
             - libiomp-dev
-            - libiomp5
       env:
         - CLANG=true
 
