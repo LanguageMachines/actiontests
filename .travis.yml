@@ -24,6 +24,11 @@ matrix:
 
     - os: linux
       compiler: clang
+      addons:
+        apt:
+          packages:
+            - libiomp-dev
+            - libiomp5
 
     - os: osx
       compiler: gcc
@@ -45,9 +50,10 @@ before_install:
 install:
     - bash bootstrap.sh
     - ./configure
+    - dpkg -L libiomp-dev
+    - dpkg -L libiomp5
     - make
     - sudo make install
-#    - ls -al /usr/lib/x86_64-linux-gnu/lib*omp.so
 
 script:
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
