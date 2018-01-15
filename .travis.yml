@@ -21,6 +21,7 @@ matrix:
   include:
     - os: linux
       compiler: gcc
+      env: COMPILER=g++
 
     - os: linux
       compiler: clang
@@ -29,7 +30,7 @@ matrix:
           packages:
             - libiomp-dev
       env:
-        - CLANG=true
+        - COMPILER=clang++
 
     - os: osx
       compiler: gcc
@@ -39,11 +40,6 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
         sudo apt-get update;
         sudo apt-get install pkg-config autoconf-archive libicu-dev libexttextcat-dev;
-        if [[ "$CLANG" == "true" ]]; then
-          dpkg -L libiomp-dev
-          sudo ln -s /usr/lib/libiomp5.so /usr/lib/libomp.so
-          ls -al /usr/lib/libomp*
-        fi
       fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         brew update;
@@ -56,8 +52,8 @@ before_install:
 install:
     - bash bootstrap.sh
     - ./configure
-    - make
-    - sudo make install
+    - make CXX=$COMPILER
+    - sudo make CXX=$COMPILER install
 
 script:
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
