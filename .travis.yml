@@ -41,7 +41,6 @@ before_install:
         sudo apt-get install pkg-config autoconf-archive libicu-dev libexttextcat-dev;
 	if [[ "$CLANG" == "true" ]]; then
 	  dpkg -L libiomp-dev
-    	  dpkg -L libiomp5
 	  sudo ln -s /usr/lib/libiomp5.so /usr/lib/libomp.so
 	  ls -al /usr/lib/libomp*
 	fi
