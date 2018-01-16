@@ -35,7 +35,8 @@ matrix:
 
     - os: osx
       compiler: clang++
-
+      env:
+        - COMPILER=clang++
 
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
@@ -46,8 +47,8 @@ before_install:
         brew update;
         brew install pkg-config;
         brew install autoconf-archive;
-        brew install icu4c;
-        brew install libtextcat;
+        brew outdated || brew install icu4c;
+        brew outdated || brew install libtextcat;
       fi
 
 install:
