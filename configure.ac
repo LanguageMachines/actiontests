@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
 
-AC_PROG_CXX( [g++] )
+AC_PROG_CXX( [clang++-3.9] )
 
 # use libtool
 AC_PROG_LIBTOOL
@@ -26,9 +26,10 @@ fi
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_OPENMP
+#AC_OPENMP
 if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
-   CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+#   CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+   CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
    AC_DEFINE(HAVE_OPENMP, 1 , Define to 1 if you have OpenMP )
 else
    AC_MSG_NOTICE(We don't have OpenMP. Multithreaded operation is disabled)

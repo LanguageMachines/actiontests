@@ -9,11 +9,19 @@
 
 using namespace std;
 
-void sub( int i ){
+void sub1( int i ){
   double power = pow( i, i );
-#pragma omp critical
+#pragma omp critical (bla)
   {
-      cerr << "I=" << i << " i^i=" << power << endl;
+    cerr << i << "^" << i << "=" << power << endl;
+  }
+}
+
+void sub2( int i ){
+  double lg = log( i );
+#pragma omp critical (bla)
+  {
+    cerr << " log(" << i << ")=" << lg << endl;
   }
 }
 
@@ -21,6 +29,7 @@ int main(){
   cerr << "start" << endl;
 #ifdef HAVE_OPENMP
   omp_set_num_threads(8);
+  omp_set_nested(1);
   cerr << "OMP: maximum number of threads=" << omp_get_max_threads() << endl;
 #else
   cerr << "Too bad. No OpenMP support available! " << endl;
@@ -35,7 +44,16 @@ int main(){
   }
 #pragma omp parallel for
   for ( int i=0; i < 30; ++i ){
-    sub( i );
+#pragma omp parallel sections
+    {
+#pragma omp section
+      {
+	sub1( i );
+      }
+#pragma omp section
+      {
+	sub2( i );
+      }
+    }
   }
-
 }
