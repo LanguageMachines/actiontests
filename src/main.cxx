@@ -2,7 +2,9 @@
 #ifdef HAVE_OPENMP
 #include "omp.h"
 #endif
+#ifdef HAVE_OPENMP
 #include "textcat.h"
+#endif
 #include <cmath>
 #include <string>
 #include <iostream>
@@ -35,6 +37,7 @@ int main(){
   cerr << "Too bad. No OpenMP support available! " << endl;
 #endif
 
+#ifdef HAVE_TEXTCAT
   auto TC = textcat_Init( "dummy" );
   if ( TC != 0 ){
     cerr << "Surprise!" << endl;
@@ -42,6 +45,9 @@ int main(){
   else {
     cerr << "next step" << endl;
   }
+#else
+  cerr << "NO TEXTCAT SUPPORT!?"
+#endif
 #pragma omp parallel for
   for ( int i=0; i < 30; ++i ){
 #pragma omp parallel sections
