@@ -9,6 +9,14 @@
 
 using namespace std;
 
+void sub( int i ){
+  double power = pow( i, i );
+#pragma omp critical
+  {
+      cerr << "I=" << i << " i^i=" << power << endl;
+  }
+}
+
 int main(){
   cerr << "start" << endl;
 #ifdef HAVE_OPENMP
@@ -27,10 +35,7 @@ int main(){
   }
 #pragma omp parallel for
   for ( int i=0; i < 30; ++i ){
-#pragma omp critical
-    {
-      cerr << "I=" << i << " i^i=" << pow(i,i) << endl;
-    }
+    sub( i );
   }
 
 }
