@@ -46,7 +46,7 @@ int main(){
     cerr << "next step" << endl;
   }
 #else
-  cerr << "NO TEXTCAT SUPPORT!?"
+  cerr << "NO TEXTCAT SUPPORT!?" << endl;
 #endif
 #pragma omp parallel for
   for ( int i=0; i < 30; ++i ){
