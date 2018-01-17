@@ -2,7 +2,7 @@
 #ifdef HAVE_OPENMP
 #include "omp.h"
 #endif
-#ifdef HAVE_OPENMP
+#ifdef HAVE_TEXTCAT
 #include "textcat.h"
 #endif
 #include <cmath>
