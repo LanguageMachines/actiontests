@@ -43,7 +43,7 @@ int main(){
     cerr << "Surprise!" << endl;
   }
   else {
-    cerr << "next step" << endl;
+    cerr << "next step.." << endl;
   }
 #else
   cerr << "NO TEXTCAT SUPPORT!?" << endl;
