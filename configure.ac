@@ -36,6 +36,8 @@ else
 fi
 
 # Checks for library functions.
+AC_CHECK_FUNCS([pow])
+AC_FUNC_FORK
 
 if test $prefix = "NONE"; then
    prefix="$ac_default_prefix"
