@@ -4,7 +4,7 @@
 #endif
 #include <cmath>
 #include <unistd.h> // sleep()
-#include <wait.h> // wait()
+#include <sys/wait.h> // wait()
 #include <string>
 #include <iostream>
 
