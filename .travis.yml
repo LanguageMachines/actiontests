@@ -48,7 +48,7 @@ before_install:
         brew install pkg-config;
         brew install autoconf-archive;
         brew outdated icu4j || brew install icu4c;
-        brew outdated libtextcat || brew install libtextcat;
+        brew install libtextcat;
       fi
 
 install:

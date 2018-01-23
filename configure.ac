@@ -8,7 +8,7 @@ AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
 
-AC_PROG_CXX( [clang++-3.9] )
+AC_PROG_CXX( [clang++-5.0] )
 
 # use libtool
 AC_PROG_LIBTOOL
@@ -29,10 +29,16 @@ fi
 AC_OPENMP
 if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
    CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
-#   CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
-   AC_DEFINE(HAVE_OPENMP, 1 , Define to 1 if you have OpenMP )
+   AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
 else
-   AC_MSG_NOTICE(We don't have OpenMP. Multithreaded operation is disabled)
+   AX_COMPILER_VENDOR
+   if test x"$ax_cv_cxx_compiler_vendor" = xclang; then
+     CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
+     AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
+     AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+   else
+     AC_MSG_NOTICE([We don't have OpenMP. Multithreaded operation is disabled])
+   fi
 fi
 
 # Checks for library functions.
@@ -73,7 +79,7 @@ if test $TEXTCAT_FOUND = 1; then
 else
 # final resort... for OSX at least
    AC_CHECK_HEADERS([libtextcat/textcat.h],
-	[CXXFLAGS="$CXXFLAGS -I $prefix/include/libtextcat"
+	[CXXFLAGS="$CXXFLAGS -I$prefix/include"
 	 AC_SEARCH_LIBS([textcat_Init],
 	  [textcat],
 	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])],
