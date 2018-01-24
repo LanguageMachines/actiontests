@@ -37,6 +37,7 @@ AC_DEFUN([AC_CHECK_OPENMP],
       case ${host_os} in
         linux*)
 	  kernel=`uname -r`
+	  AC_MSG_NOTICE([Kernel is: ${kernel}])
 	  case ${kernel} in
 	    4.0*)
 # Trusty linux clang does sometimes stackdump on openmp.
