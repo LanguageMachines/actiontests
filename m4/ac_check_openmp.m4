@@ -42,7 +42,7 @@ AC_DEFUN([AC_CHECK_OPENMP],
 # Trusty linux clang does sometimes stackdump on openmp.
             AC_MSG_NOTICE([We don't have a working OpenMP for Clang. Multithreaded operation is disabled])
 	  ;;
-	    4.[12345])
+	    4.[12345]*)
 # decent linux clang does know openmp.
             CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
             AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
