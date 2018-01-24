@@ -36,10 +36,19 @@ AC_DEFUN([AC_CHECK_OPENMP],
     if test x"$ax_cv_cxx_compiler_vendor" = xclang; then
       case ${host_os} in
         linux*)
-# linux clang does knows openmp.
-          CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
-          AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
-          AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+	  kernel=`uname -r`
+	  case ${kernel} in
+	    4.0*)
+# Trusty linux clang does sometimes stackdump on openmp.
+            AC_MSG_NOTICE([We don't have a working OpenMP for Clang. Multithreaded operation is disabled])
+	  ;;
+	    4.[12345])
+# decent linux clang does know openmp.
+            CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
+            AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
+            AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+	  ;;
+	  esac
       ;;
         darwin*)
 # darwin's clang is braindead
