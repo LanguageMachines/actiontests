@@ -59,8 +59,9 @@ install:
 
 script:
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
-    - cat src/test-suite.log
+    - cat src/tst.log
 
 after_failure:
+    - cat src/tst.log
     - tail -n500 config.log
     - cat src/test-suite.log
