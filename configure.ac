@@ -28,19 +28,25 @@ fi
 # Checks for typedefs, structures, and compiler characteristics.
 AC_OPENMP
 if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
-   CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
-   AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+  CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+  AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
 else
-   AX_COMPILER_VENDOR
-   if test x"$ax_cv_cxx_compiler_vendor" = xclang; then
-     CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
-     AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
-     AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
-   else
-     AC_MSG_NOTICE([We don't have OpenMP. Multithreaded operation is disabled])
-   fi
+  AX_COMPILER_VENDOR
+  if test x"$ax_cv_cxx_compiler_vendor" = xclang; then
+    case ${host_os} in
+      linux*)
+# linux clang does knw openmp.
+        CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
+        AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
+        AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+    ;;
+      darwin*)
+# darwin's clang is braindead
+        AC_MSG_NOTICE([We don't have OpenMP. Multithreaded operation is disabled])
+    ;;
+    esac
+  fi
 fi
-
 # Checks for library functions.
 AC_CHECK_FUNCS([pow])
 AC_FUNC_FORK

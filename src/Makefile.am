@@ -8,4 +8,5 @@ fork_SOURCES = fork.cxx
 
 check_PROGRAMS = main fork
 
-TESTS = $(check_PROGRAMS)
+TESTS = tst.sh
+EXTRA_DIST = tst.sh

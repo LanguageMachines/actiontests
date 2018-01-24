@@ -26,16 +26,16 @@ void subb(){
 #pragma omp parallel num_threads(2)
   {
     int r = 1 + rand() % 4;
-    sleep( r );
 #pragma omp critical (bla)
     cerr << "sub_b(" << r << ")" << endl; // output twice
+    sleep( r );
   }
 #pragma omp critical (bla)
   cerr << "sub_b ended" << endl; // output once
 }
 
 int main(){
-  cerr << "start" << endl;
+  cerr << endl << "start fork() test." << endl;
 #ifdef HAVE_OPENMP
   omp_set_num_threads(8);
   omp_set_nested(1);
@@ -53,9 +53,12 @@ int main(){
 #endif
   int p = fork();
   if ( !p ) {
+    cerr << "start forked child () test." << endl;
     subb( );
+    cerr << "end forked child () test." << endl;
     exit(EXIT_SUCCESS);
   }
   wait(NULL);
+  cerr << "end fork() test." << endl;
   return EXIT_SUCCESS;
 }

@@ -28,7 +28,7 @@ void sub2( int i ){
 }
 
 int main(){
-  cerr << "start" << endl;
+  cerr << endl << "start main()" << endl;
 #ifdef HAVE_OPENMP
   omp_set_num_threads(8);
   omp_set_nested(1);
@@ -43,13 +43,13 @@ int main(){
     cerr << "Surprise!" << endl;
   }
   else {
-    cerr << "next step.." << endl;
+    cerr << "    but don't worry, textcat works. Next step.." << endl;
   }
 #else
   cerr << "NO TEXTCAT SUPPORT!?" << endl;
 #endif
 #pragma omp parallel for
-  for ( int i=0; i < 30; ++i ){
+  for ( int i=0; i < 20; ++i ){
 #pragma omp parallel sections
     {
 #pragma omp section
@@ -62,4 +62,6 @@ int main(){
       }
     }
   }
+  cerr << "end main()" << endl;
+  return EXIT_SUCCESS;
 }
