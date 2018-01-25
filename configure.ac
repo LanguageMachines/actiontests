@@ -17,8 +17,6 @@ LT_INIT
 # when running tests, use CXX
 AC_LANG([C++])
 
-AC_CHECK_OPENMP
-
 # Checks for libraries.
 
 if test $prefix = "NONE"; then
@@ -29,6 +27,13 @@ fi
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_OPENMP
+if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
+  CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+  AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+else
+  AC_MSG_NOTICE([We don't have OpenMP for Clang. Multithreaded operation is disabled])
+fi
 
 # Checks for library functions.
 AC_CHECK_FUNCS([pow])

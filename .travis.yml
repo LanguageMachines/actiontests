@@ -28,9 +28,11 @@ matrix:
       addons:
         apt:
           packages:
-            - libiomp-dev
+# openmp on travis/trusty is a mess. Just disable for now...
+#            - libiomp-dev
       env:
         - COMPILER=clang++
+        - OPENMPFLAG=--disable-openmp
 
 #    - os: osx
 #      compiler: clang++
@@ -52,7 +54,7 @@ before_install:
 
 install:
     - bash bootstrap.sh
-    - ./configure
+    - ./configure $OPENMPFLAG
     - make CXX=$COMPILER
     - sudo make CXX=$COMPILER install
 
