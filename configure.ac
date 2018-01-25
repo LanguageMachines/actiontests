@@ -78,7 +78,8 @@ else
 	[CXXFLAGS="$CXXFLAGS -I$prefix/include/libtextcat"
 	 AC_SEARCH_LIBS([textcat_Init],
 	  [textcat],
-	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])],
+	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])
+	   LIBS="/usr/local/lib $LIBS"],
           [AC_MSG_NOTICE([textcat library not available])])],
         [AC_MSG_NOTICE([textcat include file not available])])
 fi
