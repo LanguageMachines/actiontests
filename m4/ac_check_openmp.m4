@@ -41,6 +41,8 @@ AC_DEFUN([AC_CHECK_OPENMP],
 	  case ${kernel} in
 	    4.0*)
 #   Trusty linux clang with libiomp5 does sometimes stackdump on openmp.
+#   uncoditionally remove -fomp. very rude
+            CXXFLAGS=`echo $CXXFLAGS | sed -e "s/-fopenmp//"`
             AC_MSG_NOTICE([We don't have a working OpenMP for Clang. Multithreaded operation is disabled])
 	  ;;
 	    4.[[12345]]*)
