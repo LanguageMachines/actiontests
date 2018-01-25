@@ -21,7 +21,6 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-      env: COMPILER=g++
 
     - os: linux
       compiler: clang
@@ -31,7 +30,6 @@ matrix:
 # openmp on travis/trusty is a mess. Just disable for now...
 #            - libiomp-dev
       env:
-        - COMPILER=clang++
         - OPENMPFLAG=--disable-openmp
 
 #    - os: osx
@@ -55,11 +53,11 @@ before_install:
 install:
     - bash bootstrap.sh
     - ./configure $OPENMPFLAG
-    - make CXX=$COMPILER
-    - sudo make CXX=$COMPILER install
+    - make
+    - sudo make install
 
 script:
-    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make CXX=$COMPILER check
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make check
     - cat src/tst.log
     - cat config.log
 
