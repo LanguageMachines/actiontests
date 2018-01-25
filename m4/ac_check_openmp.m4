@@ -27,29 +27,26 @@
 # ----------------------------------
 AC_DEFUN([AC_CHECK_OPENMP],
 [
-  AC_OPENMP
-  if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
-    CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
-    AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
-  else
-    AX_COMPILER_VENDOR
-    if test x"$ax_cv_cxx_compiler_vendor" = xclang; then
-      case ${host_os} in
-        linux*)
-	  kernel=`uname -r`
-	  AC_MSG_NOTICE([Kernel is: ${kernel}])
-	  case ${kernel} in
-	    4.0*)
+  AX_COMPILER_VENDOR
+  if test x"$ax_cv_cxx_compiler_vendor" = xclang; then
+    case ${host_os} in
+      linux*)
+        kernel=`uname -r`
+	AC_MSG_NOTICE([Kernel is: ${kernel}])
+	case ${kernel} in
+	  4.0*)
 #   Trusty linux clang with libiomp5 does sometimes stackdump on openmp.
-#   uncoditionally remove -fomp. very rude
-            CXXFLAGS=`echo $CXXFLAGS | sed -e "s/-fopenmp//"`
-            AC_MSG_NOTICE([We don't have a working OpenMP for Clang. Multithreaded operation is disabled])
-	  ;;
-	    4.[[12345]]*)
-# decent linux clang does know openmp.
-            CXXFLAGS="$CXXFLAGS -fopenmp=libiomp5"
-            AC_MSG_NOTICE( [Assume clang supports -fopenmp=libiomp5] )
-            AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+          AC_MSG_NOTICE([We don't have a working OpenMP for Clang. Multithreaded operation is disabled])
+          ;;
+	  4.[[12345]]*)
+# decent linux clang might know openmp.
+            AC_OPENMP
+            if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
+              CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+              AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+            else
+          AC_MSG_NOTICE([We don't have OpenMP for Clang. Multithreaded operation is disabled])
+            fi
 	  ;;
 	  esac
       ;;
@@ -57,7 +54,14 @@ AC_DEFUN([AC_CHECK_OPENMP],
 # darwin's clang is braindead
           AC_MSG_NOTICE([We don't have OpenMP. Multithreaded operation is disabled])
       ;;
-      esac
+    esac
+  else
+    AC_OPENMP
+    if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
+      CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
+      AC_DEFINE(HAVE_OPENMP, 1 , [Define to 1 if you have OpenMP] )
+    else
+      AC_MSG_NOTICE([We don't have OpenMP for Clang. Multithreaded operation is disabled])
     fi
   fi
 ])
