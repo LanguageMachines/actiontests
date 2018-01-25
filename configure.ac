@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
+AC_PREREQ(2.62)
 AC_INIT([travistest], [0.1], [K.vanderSloot@let.ru.nl])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
@@ -9,6 +9,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
 
 AC_PROG_CXX( [clang++-5.0] )
+
+AC_MSG_NOTICE([the CXX flags: $CXXFLAGS])
 
 # use libtool
 AC_PROG_LIBTOOL
@@ -22,6 +24,7 @@ AC_LANG([C++])
 if test $prefix = "NONE"; then
    prefix="$ac_default_prefix"
 fi
+
 
 # Checks for header files.
 
