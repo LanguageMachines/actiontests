@@ -28,7 +28,6 @@ fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_OPENMP
-AC_MSG_NOTICE([ARGL:$ac_cv_prog_cxx_openmp])
 if test "x$ac_cv_prog_cxx_openmp" != "x"; then
   if test "x$ac_cv_prog_cxx_openmp" != "xunsupported"; then
     CXXFLAGS="$CXXFLAGS $OPENMP_CXXFLAGS"
