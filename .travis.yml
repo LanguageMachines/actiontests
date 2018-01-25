@@ -23,7 +23,7 @@ matrix:
       compiler: gcc
 
     - os: linux
-      compiler: clang
+      compiler: clang++
       addons:
         apt:
           packages:
@@ -32,10 +32,8 @@ matrix:
       env:
         - OPENMPFLAG=--disable-openmp
 
-#    - os: osx
-#      compiler: clang++
-#      env:
-#        - COMPILER=clang++
+    - os: osx
+      compiler: clang++
 
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
