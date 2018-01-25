@@ -31,7 +31,6 @@ matrix:
             - libiomp-dev
       env:
         - COMPILER=clang++
-        - CXXFLAGS="-fopenmp=libiomp5"
 
 #    - os: osx
 #      compiler: clang++

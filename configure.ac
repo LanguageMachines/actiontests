@@ -10,14 +10,14 @@ AC_CONFIG_HEADER([config.h])
 
 AC_PROG_CXX( [clang++-5.0] )
 
-AC_MSG_NOTICE([the CXX flags: $CXXFLAGS])
-
 # use libtool
 AC_PROG_LIBTOOL
 LT_INIT
 
 # when running tests, use CXX
 AC_LANG([C++])
+
+AC_CHECK_OPENMP
 
 # Checks for libraries.
 
@@ -29,8 +29,6 @@ fi
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
-
-AC_CHECK_OPENMP
 
 # Checks for library functions.
 AC_CHECK_FUNCS([pow])
