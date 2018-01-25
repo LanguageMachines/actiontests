@@ -75,7 +75,7 @@ if test $TEXTCAT_FOUND = 1; then
 else
 # final resort... for OSX at least
    AC_CHECK_HEADERS([libtextcat/textcat.h],
-	[CXXFLAGS="$CXXFLAGS -I$prefix/include"
+	[CXXFLAGS="$CXXFLAGS -I$prefix/include/libtextcat"
 	 AC_SEARCH_LIBS([textcat_Init],
 	  [textcat],
 	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])],
