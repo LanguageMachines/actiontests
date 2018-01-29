@@ -51,7 +51,7 @@ before_install:
 install:
     - bash bootstrap.sh
     - ./configure $OPENMPFLAG
-    - DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/lib make check
+    - cat config.log
     - make
     - sudo make install
 
