@@ -4,9 +4,12 @@
 #endif
 #ifdef HAVE_TEXTCAT
 #ifdef __cplusplus
-extern "C"
+extern "C" {
 #endif
 #include "textcat.h"
+#ifdef __cplusplus
+}
+#endif
 #endif
 #include <cmath>
 #include <string>
