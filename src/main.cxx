@@ -3,6 +3,9 @@
 #include "omp.h"
 #endif
 #ifdef HAVE_TEXTCAT
+#ifdef __cplusplus
+extern "C"
+#endif
 #include "textcat.h"
 #endif
 #include <cmath>
