@@ -79,7 +79,7 @@ else
 	 AC_SEARCH_LIBS([textcat_Init],
 	  [textcat],
 	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])
-	   LIBS="-L/usr/local/lib $LIBS"],
+	   AC_DEFINE([HAVE_CLINK_TEXTCAT], [1], [textcat needs C linkage])],
           [AC_MSG_NOTICE([textcat library not available])])],
         [AC_MSG_NOTICE([textcat include file not available])])
 fi
