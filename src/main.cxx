@@ -48,7 +48,8 @@ int main(){
 #endif
 
 #ifdef HAVE_TEXTCAT
-  auto TC = textcat_Init( "dummy" );
+  string textcat_cfg = string(SYSCONF_PATH) + "/travistest/textcat.cfg";
+  auto TC = textcat_Init( textcat_cfg.c_str() );
   if ( TC != 0 ){
     cerr << "Surprise!" << endl;
   }

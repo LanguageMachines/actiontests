@@ -8,6 +8,9 @@ AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
 
+SYSCONFDIR=$sysconfdir
+AC_SUBST([SYSCONFDIR])
+
 AC_PROG_CXX( [clang++-5.0] )
 
 # use libtool
@@ -18,11 +21,6 @@ LT_INIT
 AC_LANG([C++])
 
 # Checks for libraries.
-
-if test $prefix = "NONE"; then
-   prefix="$ac_default_prefix"
-fi
-
 
 # Checks for header files.
 
@@ -84,6 +82,9 @@ else
         [AC_MSG_NOTICE([textcat include file not available])])
 fi
 
+MODULE_PREFIX=/usr/share/libexttextcat
+AC_SUBST([MODULE_PREFIX])
+
 PKG_CHECK_MODULES([ICU], [icu-uc >= 50 icu-io] )
 CXXFLAGS="$CXXFLAGS $ICU_CFLAGS"
 LIBS="$ICU_LIBS $LIBS"
@@ -92,4 +93,6 @@ AC_OUTPUT([
   Makefile
   m4/Makefile
   src/Makefile
+  config/Makefile
+  config/textcat.cfg
 ])
