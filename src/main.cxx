@@ -51,10 +51,14 @@ int main(){
   string textcat_cfg = string(SYSCONF_PATH) + "/travistest/textcat.cfg";
   auto TC = textcat_Init( textcat_cfg.c_str() );
   if ( TC != 0 ){
-    cerr << "Surprise!" << endl;
+    cerr << "Textcat initialized!" << endl;
+    string in = "Een korte nederlandse zin.";
+    char *res = textcat_Classify( TC, in.c_str(), in.size() );
+    cerr << "classify==> " << res << endl;
   }
   else {
-    cerr << "    but don't worry, textcat works. Next step.." << endl;
+    cerr << " textcat inti failes" << endl;
+    return EXIT_FAILURE;
   }
 #else
   cerr << "NO TEXTCAT SUPPORT!?" << endl;

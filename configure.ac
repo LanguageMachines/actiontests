@@ -82,17 +82,25 @@ else
         [AC_MSG_NOTICE([textcat include file not available])])
 fi
 
-tcdirs="/usr/share/libtextcat /usr/share/libexttextcat /usr/local/share/libtextcat /usr/local/share/libexttextcat /usr/local/Cellar/libtextcat/2.2/share/LM"
+if test $TEXTCAT_FOUND = 1; then
+  tcdirs="/usr/share/libtextcat /usr/share/libexttextcat /usr/local/share/libtextcat /usr/local/share/libexttextcat /usr/local/Cellar/libtextcat/2.2/share/LM "
 
-for d in $tcdirs
-do
-  if test -f ${d}/nl.lm
+  for d in $tcdirs
+  do
+    if test -f ${d}/nl.lm
+    then
+      MODULE_PREFIX=$d
+      AC_SUBST([MODULE_PREFIX])
+      break
+    fi
+  done
+
+  if test "x$MODULE_PREFIX" = "x"
   then
-    MODULE_PREFIX=$d
-    AC_SUBST([MODULE_PREFIX])
-    break
+    AC_DEFINE([HAVE_TEXTCAT], [0], [textcat])
+    AC_MSG_NOTICE([textcat Language Model files not found. Textcat disabled.])
   fi
-done
+fi
 
 PKG_CHECK_MODULES([ICU], [icu-uc >= 50 icu-io] )
 CXXFLAGS="$CXXFLAGS $ICU_CFLAGS"
