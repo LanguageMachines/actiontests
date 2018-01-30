@@ -72,7 +72,8 @@ PKG_CHECK_MODULES( [TEXTCAT],
 if test $TEXTCAT_FOUND = 1; then
    AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])
 else
-# ok, no pkg-config found. Hopefully an old style version can be found???
+# So, no pkg-config for textcat found.
+#     Hopefully an old style version can be found???
   AC_CHECK_OLD_TEXTCAT
 fi
 

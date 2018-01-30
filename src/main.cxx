@@ -3,13 +3,13 @@
 #include "omp.h"
 #endif
 #ifdef HAVE_TEXTCAT
-  #ifdef HAVE_CLINK_TEXTCAT
+  #ifdef HAVE_OLD_TEXTCAT
     #ifdef __cplusplus
 extern "C" {
     #endif
   #endif
 #include "textcat.h"
-  #ifdef HAVE_CLINK_TEXTCAT
+  #ifdef HAVE_OLD_TEXTCAT
     #ifdef __cplusplus
 }
    #endif
