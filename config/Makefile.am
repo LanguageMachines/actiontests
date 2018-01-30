@@ -6,7 +6,7 @@ EXTRA_DIST = $(config_DATA)
 
 install-data-hook:
 	rm -f $(configdir)/textcat.cfg
-if ALT
+if OLD_LM
 	$(LN_S) $(configdir)/textcat_alt.cfg $(configdir)/textcat.cfg
 else
 	$(LN_S) $(configdir)/textcat_normal.cfg $(configdir)/textcat.cfg

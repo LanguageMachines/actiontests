@@ -72,51 +72,12 @@ PKG_CHECK_MODULES( [TEXTCAT],
 if test $TEXTCAT_FOUND = 1; then
    AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])
 else
-# final resort... for OSX at least
-   AC_CHECK_HEADERS([libtextcat/textcat.h],
-	[CXXFLAGS="$CXXFLAGS -I$prefix/include/libtextcat"
-	 AC_SEARCH_LIBS([textcat_Init],
-	  [textcat],
-	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])
-	   AC_DEFINE([HAVE_CLINK_TEXTCAT], [1], [textcat needs C linkage])]
-	   TEXTCAT_FOUND=1,
-          [AC_MSG_NOTICE([textcat library not available])])],
-        [AC_MSG_NOTICE([textcat include file not available])])
+# ok, no pkg-config found. Hopefully an old style version can be found???
+  AC_CHECK_OLD_TEXTCAT
 fi
 
-AM_CONDITIONAL([ALT], [test 1 = 0])
-
 if test $TEXTCAT_FOUND = 1; then
-  tcdirs="/usr/share/libtextcat /usr/share/libexttextcat /usr/local/share/libtextcat /usr/local/share/libexttextcat /usr/local/Cellar/libtextcat/2.2/share/LM "
-
-  for d in $tcdirs
-  do
-    if test -f ${d}/nl.lm
-    then
-      MODULE_PREFIX=$d
-      AC_SUBST([MODULE_PREFIX])
-      break
-    fi
-  done
-
-  if test "x$MODULE_PREFIX" = "x"
-  then
-    for d in $tcdirs
-    do
-      if test -f ${d}/dutch.lm
-      then
-        MODULE_PREFIX=$d
-        AC_SUBST([MODULE_PREFIX])
-	AM_CONDITIONAL([ALT], [test 1 = 1])
-        break
-      fi
-    done
-  fi
-  if test "x$MODULE_PREFIX" = "x"
-  then
-    AC_DEFINE([HAVE_TEXTCAT], [0], [textcat])
-    AC_MSG_NOTICE([textcat Language Model files not found. Textcat disabled.])
-  fi
+  AC_SEARCH_LM
 fi
 
 PKG_CHECK_MODULES([ICU], [icu-uc >= 50 icu-io] )
