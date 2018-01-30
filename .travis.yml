@@ -47,7 +47,7 @@ before_install:
         brew outdated icu4j || brew install icu4c;
         brew install libtextcat;
         brew install locate;
-        locate *.lm
+        locate *.lm;
       fi
 
 install:
