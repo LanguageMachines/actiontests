@@ -57,7 +57,7 @@ int main(){
     cerr << "classify==> " << res << endl;
   }
   else {
-    cerr << " textcat inti failes" << endl;
+    cerr << " textcat inti failed" << endl;
     return EXIT_FAILURE;
   }
 #else

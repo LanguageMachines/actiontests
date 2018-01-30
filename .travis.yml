@@ -46,6 +46,8 @@ before_install:
         brew install autoconf-archive;
         brew outdated icu4j || brew install icu4c;
         brew install libtextcat;
+        brew install locate;
+        locate *.lm
       fi
 
 install:
