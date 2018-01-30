@@ -46,7 +46,7 @@ before_install:
         brew install autoconf-archive;
         brew outdated icu4j || brew install icu4c;
         brew install libtextcat;
-        brew install locate;
+        sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist;
         locate *.lm;
       fi
 
