@@ -18,5 +18,5 @@
 @MODULE_PREFIX@/spanish.lm	spa
 @MODULE_PREFIX@/russian-iso8859_5.lm	rus
 @MODULE_PREFIX@/portuguese.lm	por
-@MODULE_PREFIX@/swedisch.lm	swe
+@MODULE_PREFIX@/swedish.lm	swe
 @MODULE_PREFIX@/turkish.lm	tur
