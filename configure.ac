@@ -82,8 +82,17 @@ else
         [AC_MSG_NOTICE([textcat include file not available])])
 fi
 
-MODULE_PREFIX=/usr/share/libexttextcat
-AC_SUBST([MODULE_PREFIX])
+tcdirs="/usr/share/libtextcat /usr/share/libexttextcat /usr/local/share/libtextcat /usr/local/share/libexttextcat /usr/local/Cellar/libtextcat/2.2/share/LM"
+
+for d in $tcdirs
+do
+  if test -f ${d}/nl.lm
+  then
+    MODULE_PREFIX=$d
+    AC_SUBST([MODULE_PREFIX])
+    break
+  fi
+done
 
 PKG_CHECK_MODULES([ICU], [icu-uc >= 50 icu-io] )
 CXXFLAGS="$CXXFLAGS $ICU_CFLAGS"
