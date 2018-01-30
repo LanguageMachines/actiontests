@@ -5,7 +5,7 @@ configdir = $(datadir)/$(PACKAGE)
 EXTRA_DIST = $(config_DATA)
 
 install-data-hook:
-	rm  $(configdir)/textcat.cfg
+	rm -f $(configdir)/textcat.cfg
 if ALT
 	$(LN_S) $(configdir)/textcat_alt.cfg $(configdir)/textcat.cfg
 else
