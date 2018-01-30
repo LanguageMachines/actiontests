@@ -44,8 +44,10 @@ before_install:
         brew update;
         brew install pkg-config;
         brew install autoconf-archive;
-        brew outdated icu4j || brew install icu4c;
+        brew outdated icu4c || brew install icu4c;
         brew install libtextcat;
+        sudo /usr/libexec/locate.updatedb;
+        /usr/libexec/locate.updatedb;
         sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist;
         locate *.lm;
       fi
