@@ -16,6 +16,7 @@ AC_PROG_CXX( [clang++-5.0] )
 # use libtool
 AC_PROG_LIBTOOL
 LT_INIT
+AC_PROG_LN_S
 
 # when running tests, use CXX
 AC_LANG([C++])
@@ -77,10 +78,13 @@ else
 	 AC_SEARCH_LIBS([textcat_Init],
 	  [textcat],
 	  [AC_DEFINE([HAVE_TEXTCAT], [1], [textcat])
-	   AC_DEFINE([HAVE_CLINK_TEXTCAT], [1], [textcat needs C linkage])],
+	   AC_DEFINE([HAVE_CLINK_TEXTCAT], [1], [textcat needs C linkage])]
+	   TEXTCAT_FOUND=1,
           [AC_MSG_NOTICE([textcat library not available])])],
         [AC_MSG_NOTICE([textcat include file not available])])
 fi
+
+AM_CONDITIONAL([ALT], [test 1 = 0])
 
 if test $TEXTCAT_FOUND = 1; then
   tcdirs="/usr/share/libtextcat /usr/share/libexttextcat /usr/local/share/libtextcat /usr/local/share/libexttextcat /usr/local/Cellar/libtextcat/2.2/share/LM "
@@ -97,6 +101,19 @@ if test $TEXTCAT_FOUND = 1; then
 
   if test "x$MODULE_PREFIX" = "x"
   then
+    for d in $tcdirs
+    do
+      if test -f ${d}/dutch.lm
+      then
+        MODULE_PREFIX=$d
+        AC_SUBST([MODULE_PREFIX])
+	AM_CONDITIONAL([ALT], [test 1 = 1])
+        break
+      fi
+    done
+  fi
+  if test "x$MODULE_PREFIX" = "x"
+  then
     AC_DEFINE([HAVE_TEXTCAT], [0], [textcat])
     AC_MSG_NOTICE([textcat Language Model files not found. Textcat disabled.])
   fi
@@ -111,5 +128,6 @@ AC_OUTPUT([
   m4/Makefile
   src/Makefile
   config/Makefile
-  config/textcat.cfg
+  config/textcat_normal.cfg
+  config/textcat_alt.cfg
 ])
