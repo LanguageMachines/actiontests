@@ -46,6 +46,7 @@ before_install:
         brew install autoconf-archive;
         brew outdated icu4c || brew install icu4c;
         brew install libtextcat;
+        brew install llvm;
       fi
 
 install:
