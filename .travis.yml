@@ -44,9 +44,12 @@ before_install:
         brew update;
         brew install pkg-config;
         brew install autoconf-archive;
-        brew outdated icu4c || brew install icu4c;
+        brew outdated icu4c || brew update icu4c;
         brew install libtextcat;
         brew install llvm;
+        export PATH="/usr/local/opt/llvm/bin:$PATH"
+        export LDFLAGS="-L/usr/local/opt/llvm/lib"
+        export CXXFLAGS="-I/usr/local/opt/llvm/include"
       fi
 
 install:
