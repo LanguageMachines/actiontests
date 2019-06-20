@@ -39,6 +39,8 @@ matrix:
           - $HOME/Library/Caches/Homebrew
       before_cache:
         - brew cleanup
+      env:
+        - OPENMPFLAG=--disable-openmp
 
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
@@ -49,12 +51,12 @@ before_install:
         brew update;
         brew install pkg-config;
         brew install autoconf-archive;
-        brew update icu4c;
-        brew install libtextcat;
-        brew install llvm;
-        export PATH="/usr/local/opt/llvm/bin:$PATH";
-        export LDFLAGS="-L/usr/local/opt/llvm/lib";
-        export CXXFLAGS="-I/usr/local/opt/llvm/include";
+#        brew update icu4c;
+#        brew install libtextcat;
+#        brew install llvm;
+#        export PATH="/usr/local/opt/llvm/bin:$PATH";
+#        export LDFLAGS="-L/usr/local/opt/llvm/lib";
+#        export CXXFLAGS="-I/usr/local/opt/llvm/include";
       fi
 
 install:

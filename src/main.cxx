@@ -18,6 +18,7 @@ extern "C" {
 #include <cmath>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ void sub2( int i ){
     cerr << " log(" << i << ")=" << lg << endl;
   }
 }
-
+#ifdef OLD
 int main(){
   cerr << endl << "start main()" << endl;
 #ifdef HAVE_OPENMP
@@ -80,3 +81,14 @@ int main(){
   cerr << "end main()" << endl;
   return EXIT_SUCCESS;
 }
+#else
+int main(){
+  ostream *os;
+  ofstream test("afile");
+  os = &test;
+  *os << "TEST afile" << endl;
+  test.close();
+  os = &cout;
+  *os << "TEST stdout" << endl;
+}
+#endif
