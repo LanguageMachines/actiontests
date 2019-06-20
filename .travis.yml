@@ -69,9 +69,10 @@ install:
 script:
     - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make check
     - cat src/tst.log
-    - cat config.log
+#    - cat config.log
 
 after_failure:
     - cat src/tst.log
-    - cat config.log
+#    - cat config.log
+    - cat afile
     - cat src/test-suite.log
