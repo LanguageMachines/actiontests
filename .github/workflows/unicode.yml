@@ -73,7 +73,7 @@ jobs:
                 sudo apt-get install zlib1g-dev
              else
                 brew install libxml2
-                # brew reinstall icu4c
+                brew reinstall icu4c
                 brew install bzip2
                 brew install zlib
              fi
@@ -85,6 +85,11 @@ jobs:
         env:
           CXX: ${{ matrix.compiler }}
         run: ./configure
+      - name MAC info
+        if  ${{ matrix.os == 'macos-14' }}
+        run |
+          cat /opt/homebrew/Cellar/icu4c/74.2/include/unicode/ustream.h
+          nm -C /opt/homebrew/Cellar/icu4c/74.2/lib/libicuio.a |grep 'T '
       - name: make
         env:
           CXX: ${{ matrix.compiler }}
