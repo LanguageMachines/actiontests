@@ -85,9 +85,9 @@ jobs:
         env:
           CXX: ${{ matrix.compiler }}
         run: ./configure
-      - name MAC info
-        if:  ${{ matrix.os == 'macos-14' }}
-        run |
+      - name: MACinfo
+        if: ${{ matrix.os == 'macos-14' }}
+        run: |
           cat /opt/homebrew/Cellar/icu4c/74.2/include/unicode/ustream.h
           nm -C /opt/homebrew/Cellar/icu4c/74.2/lib/libicuio.a |grep 'T '
       - name: make
