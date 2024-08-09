@@ -56,10 +56,10 @@ jobs:
              if [ "$RUNNER_OS" == "Linux" ]; then
                 sudo apt-get install pkgconf autoconf-archive
              else
-                # installing the newer pkgconf on Mac is a PITA,
-                # just use old pkgcfg
                 brew upgrade
-                brew install pkg-config
+                # installing the newer pkgconf on Mac is a PITA,
+                # just use old pkgcfg  (OR not?)
+                # brew install pkg-config
                 brew install libtool
                 brew install autoconf
                 brew install autoconf-archive
@@ -86,7 +86,7 @@ jobs:
           CXX: ${{ matrix.compiler }}
         run: ./configure
       - name: MACinfo
-        if: ${{ matrix.os == 'macos-14' }}
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |
           cat /opt/homebrew/Cellar/icu4c/74.2/include/unicode/ustream.h
           nm -C /opt/homebrew/Cellar/icu4c/74.2/lib/libicuio.a |grep 'T '
