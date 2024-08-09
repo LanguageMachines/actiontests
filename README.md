@@ -1,5 +1,3 @@
-# travistest
-small program to test travis issues.
- - OSX support
- - Clang OpenMP support
- - libtextcat hassle
+# actiontest
+small program to test GitHib action issues.
+ - OSX ICU trouble
