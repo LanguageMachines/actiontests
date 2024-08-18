@@ -81,7 +81,11 @@ jobs:
       - name: bootstrap
         run: sh bootstrap.sh
 
-      - name: MACflags
+      - name: MAC infi
+        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'clang++' }}
+        run: |
+          clang++ -v srs/main.cxx
+      - name: MAC flags
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: |
           cflags="$CXXFLAGS -nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++ -lc++abi -lm -lc -lgcc "
