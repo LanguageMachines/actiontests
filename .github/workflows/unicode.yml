@@ -89,8 +89,12 @@ jobs:
       - name: configure
         env:
           CXX: ${{ matrix.compiler }}
-          CXXFLAGS: ${{ env.cflags }}
+          CXXFLAGS: $CXXFLAGS+${{ env.cflags }}
         run: ./configure
+        continue-on-error: true
+      - name: config.log
+        if: ${{ steps.configure.outcome != 'success' }}
+        run: cat config.log
       - name: make
         env:
           CXX: ${{ matrix.compiler }}
