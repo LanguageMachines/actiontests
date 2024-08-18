@@ -84,7 +84,7 @@ jobs:
       - name: MACflags
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: |
-          cflags="$CXXFLAGS -nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++"
+          cflags="$CXXFLAGS -nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++ -lc++abi -lm -lc -lgcc "
           echo "cflags=$cflags" >> $GITHUB_ENV
       - name: configure
         env:
