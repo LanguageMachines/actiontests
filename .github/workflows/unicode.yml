@@ -84,12 +84,12 @@ jobs:
       - name: MACflags
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: |
-          cflags="-nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++"
+          cflags="$CXXFLAGS -nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++"
           echo "cflags=$cflags" >> $GITHUB_ENV
       - name: configure
         env:
           CXX: ${{ matrix.compiler }}
-          CXXFLAGS: $CXXFLAGS+${{ env.cflags }}
+          CXXFLAGS: ${{ env.cflags }}
         run: ./configure
         continue-on-error: true
       - name: config.log
