@@ -81,14 +81,10 @@ jobs:
       - name: bootstrap
         run: sh bootstrap.sh
 
-      - name: MAC infi
-        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'clang++' }}
-        run: |
-          clang++ -v src/main.cxx
       - name: MAC flags
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: |
-          cflags="$CXXFLAGS -nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++ -lc++abi -lm -lc -lgcc "
+          cflags="$CXXFLAGS -nostdinc++ -I../include -Iinclude -I/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -nodefaultlibs -lc++ -lc++abi -lm -lc -lgcc "
           echo "cflags=$cflags" >> $GITHUB_ENV
       - name: configure
         env:
