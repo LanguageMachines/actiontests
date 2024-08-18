@@ -84,7 +84,7 @@ jobs:
       - name: MAC infi
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'clang++' }}
         run: |
-          clang++ -v srs/main.cxx
+          clang++ -v src/main.cxx
       - name: MAC flags
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: |
