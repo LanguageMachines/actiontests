@@ -81,24 +81,27 @@ jobs:
       - name: bootstrap
         run: sh bootstrap.sh
 
+      - name: MACflags
+        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'gcc-12' }}
+        run: |
+          cflags="-nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++"
+          echo "cflags=$cflags" >> $GITHUB_ENV
       - name: configure
         env:
           CXX: ${{ matrix.compiler }}
+          CXXFLAGS: ${{ env.cflags }}
         run: ./configure
-      - name: MACinfo
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: |
-          cat /opt/homebrew/Cellar/icu4c/74.2/include/unicode/ustream.h
-          nm -C /opt/homebrew/Cellar/icu4c/74.2/lib/libicuio.a |grep 'T '
       - name: make
         env:
           CXX: ${{ matrix.compiler }}
-        run: make
+          CXXFLAGS: ${{ env.cflags }}
+          run: make
         continue-on-error: true
       - name: install
         env:
           CXX: ${{ matrix.compiler }}
-        run: sudo make install
+          CXXFLAGS: ${{ env.cflags }}
+          run: sudo make install
         continue-on-error: true
       - id: compiler
         run: |
@@ -108,6 +111,7 @@ jobs:
         id: check
         env:
           CXX: ${{ matrix.compiler }}
+          CXXFLAGS: ${{ env.cflags }}
           LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
         run: make check
         continue-on-error: true
