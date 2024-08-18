@@ -95,13 +95,13 @@ jobs:
         env:
           CXX: ${{ matrix.compiler }}
           CXXFLAGS: ${{ env.cflags }}
-          run: make
+        run: make
         continue-on-error: true
       - name: install
         env:
           CXX: ${{ matrix.compiler }}
           CXXFLAGS: ${{ env.cflags }}
-          run: sudo make install
+        run: sudo make install
         continue-on-error: true
       - id: compiler
         run: |
