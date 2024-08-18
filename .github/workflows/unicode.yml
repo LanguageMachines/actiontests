@@ -82,7 +82,7 @@ jobs:
         run: sh bootstrap.sh
 
       - name: MACflags
-        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'gcc-12' }}
+        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: |
           cflags="-nostdinc++ -I../include -Iinclude -nodefaultlibs -lc++"
           echo "cflags=$cflags" >> $GITHUB_ENV
