@@ -11,7 +11,8 @@ AC_CONFIG_HEADERS([config.h])
 SYSCONFDIR=$sysconfdir
 AC_SUBST([SYSCONFDIR])
 
-AC_PROG_CXX( [clang++-5.0] )
+AC_PROG_CXX
+AX_CXX_COMPILE_STDCXX_17
 
 # use libtool
 LT_INIT
