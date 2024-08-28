@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([travistest],[0.1],[K.vanderSloot@home.nl])
+AC_INIT([actiontests],[0.2],[K.vanderSloot@home.nl])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_MACRO_DIR([m4])
@@ -26,6 +26,7 @@ AC_LANG([C++])
 # Checks for libraries.
 
 # Checks for header files.
+AC_CHECK_HEADERS([unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
