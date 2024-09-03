@@ -110,7 +110,7 @@ jobs:
       - name: get check_status
         uses: ./.github/workflows/get_status.yml
         with:
-          step: ${{ check }}
+          step: check
       - name: show status
         run: echo STATUS=${{ env.action_status }}
       - name: show log
