@@ -78,15 +78,9 @@ jobs:
       - name: bootstrap
         run: sh bootstrap.sh
 
-      - name: MAC flags
-        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
-        run: |
-          cflags="$CXXFLAGS -U_LIBCPP_USING_IF_EXISTS -nostdinc++ -I../include -Iinclude -I/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Applications/Xcode_15.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include -I/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -I/Applications/Xcode_15.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode_15.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks  -nodefaultlibs -lc++ -lc++abi -lm -lc -lgcc "
-          echo "cflags=$cflags" >> $GITHUB_ENV
       - name: configure
         env:
           CXX: ${{ matrix.compiler }}
-          CXXFLAGS: ${{ env.cflags }}
         run: ./configure
         continue-on-error: true
       - name: config.log
@@ -95,13 +89,11 @@ jobs:
       - name: make
         env:
           CXX: ${{ matrix.compiler }}
-          CXXFLAGS: ${{ env.cflags }}
         run: make
         continue-on-error: true
       - name: install
         env:
           CXX: ${{ matrix.compiler }}
-          CXXFLAGS: ${{ env.cflags }}
         run: sudo make install
         continue-on-error: true
       - id: compiler
@@ -112,10 +104,15 @@ jobs:
         id: check
         env:
           CXX: ${{ matrix.compiler }}
-          CXXFLAGS: ${{ env.cflags }}
           LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
         run: make check
         continue-on-error: true
+      - name: get check_status
+        uses: ../get_status
+        with:
+          step: ${{ check }}
+      - name: show status
+        run: echo STATUS=${{ env.action_status }}
       - name: show log
         if: ${{ steps.check.outcome != 'success' }}
         run: cat src/test-suite.log

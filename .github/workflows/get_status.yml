@@ -1,0 +1,15 @@
+name: 'Get Status'
+description: 'get a status, and set an environment var'
+
+inputs:
+  the-step:
+    description: 'which step to check'
+    required: true
+
+runs:
+  steps:
+    - name: doit
+      if: ${{ steps.}}${{input.step}}.outcome != 'succes' }}
+      run: echo "action_status=${{input.step}}" >> $GITHUB_ENV
+    - name: done
+      run: echo DONE!
