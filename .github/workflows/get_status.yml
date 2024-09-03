@@ -7,6 +7,7 @@ inputs:
     required: true
 
 runs:
+  using: "composite"
   steps:
     - name: doit
       if: ${{ steps.}}${{input.step}}.outcome != 'succes' }}
