@@ -108,7 +108,7 @@ jobs:
         run: make check
         continue-on-error: true
       - name: get check_status
-        uses: ./actions/get_status
+        uses: ./github/actions/get_status
         with:
           step: check
       - name: show status
