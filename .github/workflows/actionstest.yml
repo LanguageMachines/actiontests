@@ -80,29 +80,46 @@ jobs:
         run: sh bootstrap.sh
 
       - name: configure
+        id: configure
         env:
           CXX: ${{ matrix.compiler }}
         run: ./configure
         continue-on-error: true
+      - name: get configure_status
+        uses: ./.github/actions/get_status
+        with:
+          the-step: configure
+          outcome: ${{ steps.configure.outcome }}
       - name: config.log
-        if: ${{ steps.configure.outcome != 'success' }}
+        if: ${{ env.action_status == 'install' }}
         run: cat config.log
       - name: make
+        id: make
+        if: ${{ env.action_status == '' }}
         env:
           CXX: ${{ matrix.compiler }}
         run: make
         continue-on-error: true
+      - name: get make_status
+        uses: ./.github/actions/get_status
+        with:
+          the-step: make
+          outcome: ${{ steps.make.outcome }}
       - name: install
+        id: install
+        if: ${{ env.action_status == "" }}
         env:
           CXX: ${{ matrix.compiler }}
         run: sudo make install
         continue-on-error: true
-      - id: compiler
-        run: |
-          cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
-          echo "cid=$cid" >> $GITHUB_ENV
+      - name: get install_status
+        uses: ./.github/actions/get_status
+        with:
+          the-step: install
+          outcome: ${{ steps.install.outcome }}
       - name: make check
         id: check
+        if: ${{ env.action_status == "" }}
         env:
           CXX: ${{ matrix.compiler }}
           LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
@@ -114,11 +131,15 @@ jobs:
           the-step: check
           outcome: ${{ steps.check.outcome }}
       - name: show status
-        run: echo STATUS=${{ env.action_status }}
+        run: echo ACTION_STATUS=${{ env.action_status }}
       - name: show log
-        if: ${{ steps.check.outcome != 'success' }}
+        if: ${{ env.action_status == "check" }}
         run: cat src/test-suite.log
         continue-on-error: true
+      - id: compiler
+        run: |
+          cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
+          echo "cid=$cid" >> $GITHUB_ENV
       - name: Notify IRC of failure
         if: ${{ steps.check.outcome != 'success' }}
         uses: Gottox/irc-message-action@v2

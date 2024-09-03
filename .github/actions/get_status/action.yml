@@ -1,5 +1,5 @@
 name: 'Get Status'
-description: 'get a status, and set an environment var'
+description: 'sets the action_status environment var'
 
 inputs:
   the-step:
@@ -18,6 +18,3 @@ runs:
       run: |
         echo "outcome= ${{ inputs.outcome }}"
         echo "action_status=${{ inputs.the-step }}" >> $GITHUB_ENV
-    - name: done
-      shell: bash
-      run: echo DONE!
