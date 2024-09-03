@@ -112,6 +112,7 @@ jobs:
         uses: ./.github/actions/get_status
         with:
           step: check
+          outcome: steps.check.outcome
       - name: show status
         run: echo STATUS=${{ env.action_status }}
       - name: show log

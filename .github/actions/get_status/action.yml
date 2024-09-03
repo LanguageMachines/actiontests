@@ -5,12 +5,17 @@ inputs:
   the-step:
     description: 'which step to check'
     required: true
+  outcome:
+    description: 'which outcome'
+    required: true
 
 runs:
   using: "composite"
   steps:
     - name: doit
-      if: ${{ steps}}.${{input.the-step}}.outcome != 'succes' }}
-      run: echo "action_status=${{input.the-step}}" >> $GITHUB_ENV
+      shell: bash
+      if: inputs.outcome != 'succes' }}
+      run: echo "action_status=${{ inputs.the-step }}" >> $GITHUB_ENV
     - name: done
+      shell: bash
       run: echo DONE!
