@@ -14,7 +14,7 @@ runs:
   steps:
     - name: doit
       shell: bash
-      if: ${{ inputs.outcome != 'succes' }}
+      if: ${{ inputs.outcome != 'success' }}
       run: |
         echo "outcome= ${{ inputs.outcome }}"
         echo "action_status=${{ inputs.the-step }}" >> $GITHUB_ENV
