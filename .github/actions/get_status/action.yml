@@ -16,7 +16,7 @@ runs:
       shell: bash
       if: ${{ inputs.outcome != 'succes' }}
       run: |
-        echo "outcome= ${{ inputs.outcome }}" >> $GITHUB_ENV
+        echo "outcome= ${{ inputs.outcome }}"
         echo "action_status=${{ inputs.the-step }}" >> $GITHUB_ENV
     - name: done
       shell: bash
