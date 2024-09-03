@@ -108,7 +108,7 @@ jobs:
         run: make check
         continue-on-error: true
       - name: get check_status
-        uses: ../get_status
+        uses: ./.github/workflows/get_status.yml
         with:
           step: ${{ check }}
       - name: show status
