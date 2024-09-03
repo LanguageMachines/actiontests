@@ -133,7 +133,7 @@ jobs:
       - name: show status
         run: echo ACTION_STATUS=${{ env.action_status }}
       - name: show log
-        if: ${{ env.action_status == "check" }}
+        if: ${{ env.action_status == 'check' }}
         run: cat src/test-suite.log
         continue-on-error: true
       - id: compiler
