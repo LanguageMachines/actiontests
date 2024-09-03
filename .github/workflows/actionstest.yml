@@ -10,6 +10,7 @@ on:
       - 'src/**'
       - 'include/**'
       - '.github/workflows/*'
+      - '.github/actions/*'
 
   pull_request:
     branches: [master]
