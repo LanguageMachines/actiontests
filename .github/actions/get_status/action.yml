@@ -10,7 +10,7 @@ runs:
   using: "composite"
   steps:
     - name: doit
-      if: ${{ steps.}}${{input.step}}.outcome != 'succes' }}
-      run: echo "action_status=${{input.step}}" >> $GITHUB_ENV
+      if: ${{ steps}}.${{input.the-step}}.outcome != 'succes' }}
+      run: echo "action_status=${{input.the-step}}" >> $GITHUB_ENV
     - name: done
       run: echo DONE!
