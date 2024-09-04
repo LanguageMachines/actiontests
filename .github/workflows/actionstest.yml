@@ -77,7 +77,7 @@ jobs:
              fi
       - name: build
         id: build
-        uses: ./.github/actions/safe_build
+        uses: LanguageMachines/ticcactions/safe_build
         with:
           compiler: ${{ matrix.compiler }}
       - name: show status
