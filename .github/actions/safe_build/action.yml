@@ -10,63 +10,63 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - name: bootstrap
-        run: sh bootstrap.sh
+    - name: bootstrap
+      run: sh bootstrap.sh
 
-      - name: configure
-        id: configure
-        env:
-          CXX: ${{ inputs.compiler }}
-        run: ./configure
-        continue-on-error: true
-      - name: get configure_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: configure
-          outcome: ${{ steps.configure.outcome }}
-      - name: config.log
-        if: ${{ env.action_status == 'install' }}
-        run: cat config.log
-      - name: make
-        id: make
-        if: ${{ env.action_status == '' }}
-        env:
-          CXX: ${{ inputs.compiler }}
-        run: make
-        continue-on-error: true
-      - name: get make_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: make
-          outcome: ${{ steps.make.outcome }}
-      - name: install
-        id: install
-        if: ${{ env.action_status == '' }}
-        env:
-          CXX: ${{ inputs.compiler }}
-        run: sudo make install
-        continue-on-error: true
-      - name: get install_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: install
-          outcome: ${{ steps.install.outcome }}
-      - name: make check
-        id: check
-        if: ${{ env.action_status == '' }}
-        env:
-          CXX: ${{ inputs.compiler }}
-          LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
-        run: make check
-        continue-on-error: true
-      - name: get check_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: check
-          outcome: ${{ steps.check.outcome }}
-      - name: show status
-        run: echo ACTION_STATUS=${{ env.action_status }}
-      - name: show log
-        if: ${{ env.action_status == 'check' }}
-        run: cat src/test-suite.log
-        continue-on-error: true
+    - name: configure
+      id: configure
+      env:
+        CXX: ${{ inputs.compiler }}
+      run: ./configure
+      continue-on-error: true
+    - name: get configure_status
+      uses: ./.github/actions/get_status
+      with:
+        the-step: configure
+        outcome: ${{ steps.configure.outcome }}
+    - name: config.log
+      if: ${{ env.action_status == 'install' }}
+      run: cat config.log
+    - name: make
+      id: make
+      if: ${{ env.action_status == '' }}
+      env:
+        CXX: ${{ inputs.compiler }}
+      run: make
+      continue-on-error: true
+    - name: get make_status
+      uses: ./.github/actions/get_status
+      with:
+        the-step: make
+        outcome: ${{ steps.make.outcome }}
+    - name: install
+      id: install
+      if: ${{ env.action_status == '' }}
+      env:
+        CXX: ${{ inputs.compiler }}
+      run: sudo make install
+      continue-on-error: true
+    - name: get install_status
+      uses: ./.github/actions/get_status
+      with:
+        the-step: install
+        outcome: ${{ steps.install.outcome }}
+    - name: make check
+      id: check
+      if: ${{ env.action_status == '' }}
+      env:
+        CXX: ${{ inputs.compiler }}
+        LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
+      run: make check
+      continue-on-error: true
+    - name: get check_status
+      uses: ./.github/actions/get_status
+      with:
+        the-step: check
+        outcome: ${{ steps.check.outcome }}
+    - name: show status
+      run: echo ACTION_STATUS=${{ env.action_status }}
+    - name: show log
+      if: ${{ env.action_status == 'check' }}
+      run: cat src/test-suite.log
+      continue-on-error: true
