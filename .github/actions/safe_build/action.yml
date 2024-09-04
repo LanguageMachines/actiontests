@@ -15,6 +15,7 @@ runs:
 
     - name: configure
       id: configure
+      shell: bash
       env:
         CXX: ${{ inputs.compiler }}
       run: ./configure
@@ -25,10 +26,12 @@ runs:
         the-step: configure
         outcome: ${{ steps.configure.outcome }}
     - name: config.log
+      shell: bash
       if: ${{ env.action_status == 'install' }}
       run: cat config.log
     - name: make
       id: make
+      shell: bash
       if: ${{ env.action_status == '' }}
       env:
         CXX: ${{ inputs.compiler }}
@@ -41,6 +44,7 @@ runs:
         outcome: ${{ steps.make.outcome }}
     - name: install
       id: install
+      shell: bash
       if: ${{ env.action_status == '' }}
       env:
         CXX: ${{ inputs.compiler }}
@@ -53,6 +57,7 @@ runs:
         outcome: ${{ steps.install.outcome }}
     - name: make check
       id: check
+      shell: bash
       if: ${{ env.action_status == '' }}
       env:
         CXX: ${{ inputs.compiler }}
@@ -64,9 +69,8 @@ runs:
       with:
         the-step: check
         outcome: ${{ steps.check.outcome }}
-    - name: show status
-      run: echo ACTION_STATUS=${{ env.action_status }}
     - name: show log
+      shell: bash
       if: ${{ env.action_status == 'check' }}
       run: cat src/test-suite.log
       continue-on-error: true

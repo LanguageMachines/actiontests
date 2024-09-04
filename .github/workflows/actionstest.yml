@@ -80,6 +80,9 @@ jobs:
         uses: ./.github/actions/safe_build
         with:
           compiler: ${{ matrix.compiler }}
+      - name: show status
+        shell: bash
+        run: echo ACTION_STATUS=${{ env.action_status }}
       - id: compiler
         run: |
           cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
