@@ -75,73 +75,17 @@ jobs:
                 brew install bzip2
                 brew install zlib
              fi
-
-      - name: bootstrap
-        run: sh bootstrap.sh
-
-      - name: configure
-        id: configure
-        env:
-          CXX: ${{ matrix.compiler }}
-        run: ./configure
-        continue-on-error: true
-      - name: get configure_status
-        uses: ./.github/actions/get_status
+      - name: build
+        id: build
+	uses: ./.github/actions/safe_build
         with:
-          the-step: configure
-          outcome: ${{ steps.configure.outcome }}
-      - name: config.log
-        if: ${{ env.action_status == 'install' }}
-        run: cat config.log
-      - name: make
-        id: make
-        if: ${{ env.action_status == '' }}
-        env:
-          CXX: ${{ matrix.compiler }}
-        run: make
-        continue-on-error: true
-      - name: get make_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: make
-          outcome: ${{ steps.make.outcome }}
-      - name: install
-        id: install
-        if: ${{ env.action_status == '' }}
-        env:
-          CXX: ${{ matrix.compiler }}
-        run: sudo make install
-        continue-on-error: true
-      - name: get install_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: install
-          outcome: ${{ steps.install.outcome }}
-      - name: make check
-        id: check
-        if: ${{ env.action_status == '' }}
-        env:
-          CXX: ${{ matrix.compiler }}
-          LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
-        run: make check
-        continue-on-error: true
-      - name: get check_status
-        uses: ./.github/actions/get_status
-        with:
-          the-step: check
-          outcome: ${{ steps.check.outcome }}
-      - name: show status
-        run: echo ACTION_STATUS=${{ env.action_status }}
-      - name: show log
-        if: ${{ env.action_status == 'check' }}
-        run: cat src/test-suite.log
-        continue-on-error: true
+          compiler: ${{ matrix.compiler }}
       - id: compiler
         run: |
           cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
           echo "cid=$cid" >> $GITHUB_ENV
       - name: Notify IRC of failure
-        if: ${{ steps.check.outcome != 'success' }}
+        if: ${{ env.action_status != '' }}
         uses: Gottox/irc-message-action@v2
         with:
           server: irc.uvt.nl
@@ -149,7 +93,7 @@ jobs:
           nickname: GH-${{ runner.os }}-${{ env.cid }}
           message: "unicodetest [${{ needs.notification.outputs.branch }}] build with ${{ matrix.compiler }} by ${{ github.actor }} on ${{ matrix.os }}: \u00034FAILED\u0003 in step ${{ env.action_status }}"
       - name: Notify IRC of succes
-        if: ${{ steps.check.outcome == 'success' }}
+        if: ${{ env.action_status == '' }}
         uses: Gottox/irc-message-action@v2
         with:
           server: irc.uvt.nl
