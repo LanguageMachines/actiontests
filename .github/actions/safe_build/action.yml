@@ -11,9 +11,7 @@ runs:
   using: "composite"
   steps:
     - name: bootstrap
-    - name: show status
       shell: bash
-      run: echo ACTION_STATUS=${{ env.action_status }}
       run: sh bootstrap.sh
 
     - name: configure
