@@ -80,6 +80,7 @@ jobs:
         uses: LanguageMachines/ticcactions/safe_build@v1.0
         with:
           compiler: ${{ matrix.compiler }}
+
       - name: show status
         shell: bash
         run: echo ACTION_STATUS=${{ env.action_status }}
