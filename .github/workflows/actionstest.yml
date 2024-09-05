@@ -93,7 +93,7 @@ jobs:
         uses: LanguageMachines/ticcactions/irc_status@v1
         with:
           os: ${{ matrix.os }}
-	  module: actiontests
+          module: actiontests
           branch: ${{ needs.notification.outputs.branch }}
           compiler: ${{ matrix.compiler }}
           nickname: GH-${{ runner.os }}-${{ env.cid }}
