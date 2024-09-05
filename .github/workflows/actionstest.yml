@@ -93,3 +93,5 @@ jobs:
           os: ${{ matrix.os }}
           branch: ${{ needs.notification.outputs.branch }}
           compiler: ${{ matrix.compiler }}
+          nickname: GH-${{ runner.os }}-${{ env.cid }}
+          status: ${{ env.action_status }}
