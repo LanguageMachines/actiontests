@@ -87,19 +87,9 @@ jobs:
         run: |
           cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
           echo "cid=$cid" >> $GITHUB_ENV
-      - name: Notify IRC of failure
-        if: ${{ env.action_status != '' }}
-        uses: Gottox/irc-message-action@v2
+      - name: Notify IRC of resullts
+        uses: LanguageMachines/ticcactions/irc_status@v1
         with:
-          server: irc.uvt.nl
-          channel: '#gitlama'
-          nickname: GH-${{ runner.os }}-${{ env.cid }}
-          message: "unicodetest [${{ needs.notification.outputs.branch }}] build with ${{ matrix.compiler }} by ${{ github.actor }} on ${{ matrix.os }}: \u00034FAILED\u0003 in step ${{ env.action_status }}"
-      - name: Notify IRC of succes
-        if: ${{ env.action_status == '' }}
-        uses: Gottox/irc-message-action@v2
-        with:
-          server: irc.uvt.nl
-          channel: '#gitlama'
-          nickname: GH-${{ runner.os }}-${{ env.cid }}
-          message: "unicodetest [${{ needs.notification.outputs.branch }}] build with ${{ matrix.compiler }} by ${{ github.actor }} on ${{ matrix.os }}: \u00033SUCCESS\u0003"
+          os: ${{ matrix.os }}
+          branch: ${{ needs.notification.outputs.branch }}
+          compiler: ${{ matrix.compiler }}
