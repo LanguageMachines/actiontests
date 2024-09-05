@@ -89,7 +89,7 @@ jobs:
           cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
           echo "cid=$cid" >> $GITHUB_ENV
 
-      - name: Notify IRC of resullts
+      - name: Notify IRC of results
         uses: LanguageMachines/ticcactions/irc_status@v1
         with:
           os: ${{ matrix.os }}
