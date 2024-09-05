@@ -83,7 +83,10 @@ jobs:
 
       - name: show status
         shell: bash
-        run: echo ACTION_STATUS=${{ env.action_status }}
+        run: |
+          echo matrix.os=${{ matrix.os }}
+          echo runner.os=${{ runner.os }}
+          echo ACTION_STATUS=${{ env.action_status }}
       - id: compiler
         run: |
           cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
