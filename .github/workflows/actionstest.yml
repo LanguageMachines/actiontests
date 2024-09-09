@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: exclude Mac-OS with g++
         shell: bash
-        if: ${{ matrix.os == 'macos-latest' && matrix.os == 'g++-12' }}
+        if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
         run: echo "action_status='skip'" >> $GITHUB_ENV
 
       - name: Cancel Previous Runs
