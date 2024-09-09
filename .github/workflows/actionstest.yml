@@ -14,9 +14,6 @@ on:
   pull_request:
     branches: [master]
 
-env:
-  ACTIONS_STEP_DEBUG: true
-
 jobs:
   notification:
     runs-on: ubuntu-latest
