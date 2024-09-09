@@ -81,7 +81,7 @@ jobs:
              fi
       - name: build
         id: build
-        uses: LanguageMachines/ticcactions/safe_build@v1.0
+        uses: LanguageMachines/ticcactions/safe_build@v1
         with:
           compiler: ${{ matrix.compiler }}
 
@@ -89,7 +89,7 @@ jobs:
         shell: bash
         run: |
           echo matrix.os=${{ matrix.os }}
-          echo runner.os=${{ runner.os }}
+          echo matrix.compiler=${{ matrix.compiler }}
           echo ACTION_STATUS=${{ env.action_status }}
       - id: compiler
         run: |
