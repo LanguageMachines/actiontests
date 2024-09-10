@@ -64,8 +64,7 @@ jobs:
 
       - name: show status
         shell: bash
-        run: |
-          echo ACTION_STATUS=${{ env.action_status }}
+        run: echo ACTION_STATUS=${{ env.action_status }}
 
       - id: compiler
         run: |
