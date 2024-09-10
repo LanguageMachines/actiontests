@@ -67,8 +67,13 @@ jobs:
         run: echo ACTION_STATUS=${{ env.action_status }}
 
       - id: compiler
+        shell: bash
         run: |
           cid=$(echo ${{matrix.compiler}} | cut -d\+ -f1)
+          if [ "$cid" == "g" ]
+          then
+            cid=$cid"cc"
+          fi
           echo "cid=$cid" >> $GITHUB_ENV
       - name: Notify IRC of results
         uses: LanguageMachines/ticcactions/irc_status@v1
