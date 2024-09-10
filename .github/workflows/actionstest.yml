@@ -47,7 +47,9 @@ jobs:
       - name: exclude Mac-OS with g++
         shell: bash
         if: ${{ matrix.os == 'macos-latest' && matrix.compiler == 'g++-12' }}
-        run: echo "action_status=skip" >> $GITHUB_ENV
+        run: |
+	  echo "action_status=skip" >> $GITHUB_ENV
+	  echo "action_details='c++ library issues'" >> $GITHUB_ENV
 
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.12.1
@@ -56,8 +58,8 @@ jobs:
 
       - uses: actions/checkout@v4.1.1
 
-      - uses: LanguageMachines/ticcactions/build_env@v1
-      - uses: LanguageMachines/ticcactions/dependencies@v1
+      - uses: LanguageMachines/ticcactions/cpp-build-env@v1
+      - uses: LanguageMachines/ticcactions/cpp-dependencies@v1
 
       - name: build
         id: build
@@ -83,3 +85,4 @@ jobs:
           compiler: ${{ matrix.compiler }}
           nickname: GH-${{ runner.os }}-${{ env.cid }}
           status: ${{ env.action_status }}
+          details: ${{ env.action_details }}
