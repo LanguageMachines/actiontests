@@ -60,12 +60,7 @@ jobs:
 
       - uses: LanguageMachines/ticcactions/cpp-build-env@v1
       - uses: LanguageMachines/ticcactions/cpp-dependencies@v1
-
-      - name: build
-        id: build
-        uses: LanguageMachines/ticcactions/safe_build@v1
-        with:
-          compiler: ${{ matrix.compiler }}
+      - uses: LanguageMachines/ticcactions/cpp-safe-build@v1
 
       - name: show status
         shell: bash
@@ -79,10 +74,8 @@ jobs:
       - name: Notify IRC of results
         uses: LanguageMachines/ticcactions/irc_status@v1
         with:
-          # os: ${{ matrix.os }}
           module: actiontests
           branch: ${{ needs.notification.outputs.branch }}
-          compiler: ${{ matrix.compiler }}
           nickname: GH-${{ runner.os }}-${{ env.cid }}
           status: ${{ env.action_status }}
           details: ${{ env.action_details }}
