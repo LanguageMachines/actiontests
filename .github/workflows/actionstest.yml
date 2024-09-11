@@ -18,8 +18,6 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     name: Notifications
-    outputs:
-      branch: ${{ steps.extract_branch.outputs.branch }}
     steps:
       - name: Extract Branch name
         id: extract_branch
@@ -81,7 +79,7 @@ jobs:
         uses: LanguageMachines/ticcactions/irc_status@v1
         with:
           module: actiontests
-          branch: ${{ needs.notification.outputs.branch }}
+          branch: ${{ env.branch }}
           nickname: GH-${{ runner.os }}-${{ env.cid }}
           status: ${{ env.action_status }}
           details: ${{ env.action_details }}
