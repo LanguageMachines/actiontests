@@ -58,5 +58,6 @@ jobs:
           module: actiontests
           branch: ${{ github.ref_name }}
           nickname: ${{ env.nick }}
+	  step: test
           status: ${{ env.action_status }}
           details: ${{ env.action_details }}
