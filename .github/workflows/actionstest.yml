@@ -22,7 +22,7 @@ jobs:
       - name: set Nick
         uses: LanguageMachines/ticcactions/irc_nick@v1
       - name: IRC notification of starting the builds
-        uses:
+        uses: Gottox/irc-message-action@v2
         with:
           server: irc.uvt.nl
           channel: '#gitlama'
