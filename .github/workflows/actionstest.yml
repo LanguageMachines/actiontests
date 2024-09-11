@@ -19,8 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Notifications
     steps:
+      - name: set Nick
+        uses: LanguageMachines/ticcactions/irc_nick@v1
       - name: IRC notification of starting the builds
-        uses: Gottox/irc-message-action@v2
+        uses:
         with:
           server: irc.uvt.nl
           channel: '#gitlama'
@@ -75,6 +77,6 @@ jobs:
         with:
           module: actiontests
           branch: ${{ github.ref_name }}
-          nickname: GH-${{ runner.os }}-${{ env.cid }}
+          nickname: ${{ env.nick }}
           status: ${{ env.action_status }}
           details: ${{ env.action_details }}
