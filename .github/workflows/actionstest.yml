@@ -21,8 +21,6 @@ jobs:
     steps:
       - name: IRC notification of starting the builds
         uses: LanguageMachines/ticcactions/irc-init@v1
-        with:
-          module: ${{ github.event.repository.name }}
 
   build:
     runs-on: ${{ matrix.os }}
@@ -55,7 +53,6 @@ jobs:
       - name: Notify IRC of results
         uses: LanguageMachines/ticcactions/irc-status@v1
         with:
-          module: ${{ github.event.repository.name }}
           branch: ${{ github.ref_name }}
           nickname: ${{ env.nick }}
           step: test
