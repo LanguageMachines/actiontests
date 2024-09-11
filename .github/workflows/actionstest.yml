@@ -24,7 +24,9 @@ jobs:
       - name: Extract Branch name
         id: extract_branch
         shell: bash
-        run: echo "branch=${{env.GITHUB_REF_NAME}}" >> $GITHUB_OUTPUT
+        run: |
+          echo REF=${GITHUB_REF}
+          echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       - name: IRC notification
         uses: Gottox/irc-message-action@v2
         with:
@@ -33,7 +35,7 @@ jobs:
           nickname: GitHub
           message: >
             ${{ github.actor }} started a build of unicodetest
-            [${{ env.branch }}]
+            [${{ steps.extract_branch.outputs.branch }}]
             "${{ github.event.head_commit.message }}"
 
   build:
