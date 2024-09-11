@@ -34,7 +34,7 @@ jobs:
           nickname: GitHub
           message: >
             ${{ github.actor }} started a build of unicodetest
-            [${GITHUB_REF_NAME}]
+            [${{GITHUB_REF_NAME}}]
             "${{ github.event.head_commit.message }}"
 
   build:
