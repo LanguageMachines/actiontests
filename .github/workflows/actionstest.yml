@@ -14,9 +14,6 @@ on:
   pull_request:
     branches: [master]
 
-env:
-  branch: ${{ env.GITHUB_REF_NAME}}
-
 jobs:
   notification:
     runs-on: ubuntu-latest
@@ -27,7 +24,7 @@ jobs:
       - name: Extract Branch name
         id: extract_branch
         shell: bash
-        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+        run: echo "branch=$(echo ${GITHUB_REF_NAME})" >> $GITHUB_OUTPUT
       - name: IRC notification
         uses: Gottox/irc-message-action@v2
         with:
