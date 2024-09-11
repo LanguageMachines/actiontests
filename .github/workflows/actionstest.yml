@@ -79,7 +79,7 @@ jobs:
         uses: LanguageMachines/ticcactions/irc_status@v1
         with:
           module: actiontests
-          branch: ${{ env.branch }}
+          branch: ${{ github.ref_name }}
           nickname: GH-${{ runner.os }}-${{ env.cid }}
           status: ${{ env.action_status }}
           details: ${{ env.action_details }}
