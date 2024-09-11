@@ -20,7 +20,7 @@ jobs:
     name: Notifications
     steps:
       - name: IRC notification of starting the builds
-      - uses: LanguageMachines/ticcactions/irc_init@v1
+        uses: LanguageMachines/ticcactions/irc_init@v1
         with:
           module: actionstest
 
