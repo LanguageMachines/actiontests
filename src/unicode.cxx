@@ -5,6 +5,6 @@ using namespace icu;
 using namespace std;
 
 int main(){
-  UnicodeString test = "appeltaart is lekker";
+  UnicodeString test = "appeltaart is verdomd lekker";
   cout << test << endl;
 }
