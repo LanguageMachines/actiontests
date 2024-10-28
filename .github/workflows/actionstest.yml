@@ -42,6 +42,7 @@ jobs:
       - uses: LanguageMachines/ticcactions/cpp-dependencies@v1
       - uses: LanguageMachines/ticcactions/cpp-submodule-build@v1
         with:
+          module: ticcutils
           branch: develop
       - uses: LanguageMachines/ticcactions/cpp-safe-build@v1
       - uses: LanguageMachines/ticcactions/irc-nick@v1
