@@ -46,7 +46,6 @@ jobs:
       - uses: LanguageMachines/ticcactions/cpp-safe-build@v1
       - uses: LanguageMachines/ticcactions/irc-nick@v1
 
-
       - name: Notify IRC of results
         uses: LanguageMachines/ticcactions/irc-status@v1
         with:
